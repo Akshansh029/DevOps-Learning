@@ -14,8 +14,9 @@ Welcome to my DevOps Learning repository! 🚀 This repo is a collection of my n
 
 1. Clone the repository
 
-```git clone https://github.com/yourusername/devops-learning.git
-cd devops-learning
+```	
+	git clone https://github.com/yourusername/devops-learning.git
+	cd devops-learning
 ```
 
 2. Explore the code I used by navigating through different directories or files.
