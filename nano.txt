@@ -1,0 +1,2 @@
+This is the file I am editing and creating directly from nano editor.
+Nano editor is fun and easy to use. Ciao!

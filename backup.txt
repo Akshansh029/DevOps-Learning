@@ -1,0 +1,3 @@
+This is the backup file for file1.
+Hey, I am using Nano editor to edit this file.
+This is a fresh edit to find this file with 'find' command.
