@@ -5,8 +5,8 @@
 set -euo pipefail # used as advanced error handling flag
 
 check_awscli() {
-    if command -v aws &> /dev/null; then
-        echo "AWS CLI is not installed. Please install it first."
+    if ! command -v aws &> /dev/null; then
+        echo "AWS CLI is not installed. Installing it now..." >&2
 	return 1
     fi
 }
@@ -31,6 +31,30 @@ install_awscli() {
 
     echo "AWS CLI Installation Completed"
 }
+
+configure_aws() {
+    local aws_access_key="$AWS_ACCESS_KEY_ID"
+    local aws_secret_key="$AWS_SECRET_ACCESS_KEY"
+    local aws_region="$AWS_DEFAULT_REGION"
+
+    # Ensuring the .aws directory exists
+    mkdir -p ~/.aws
+
+    cat > ~/.aws/credentials <<EOL
+[default]
+aws_access_key_id = $aws_access_key
+aws_secret_access_key = $aws_secret_key
+EOL
+
+    cat > ~/.aws/config <<EOL
+[default]
+region = $aws_region
+output = json
+EOL
+
+    echo "AWS CLI configured successfully."
+}
+
 
 wait_for_instance() {
     local instance_id="$1"
@@ -79,23 +103,25 @@ create_ec2_instance() {
 
 main() {
 
-    check_awscli || {
-	echo "AWS CLI is not installed, installing it now..."
-	install_awscli  # If AWS CLI is missing, install it
+    check_awscli || install_awscli
+
+    configure_aws || {
+	echo "AWS Configuration failed, exiting..."
+	exit 1
     }
 
     echo "Creating EC2 instance..."
 
     # Specify the parameters for creating the EC2 instance
-    AMI_ID="ami-04b4f1a9cf54c11d"
+    AMI_ID="ami-04b4f1a9cf54c11d0"
     INSTANCE_TYPE="t2.micro"
-    KEY_NAME=""
-    SUBNET_ID=""
-    SECURITY_GROUP_IDS="" # Add your security group IDs seperated by spaces
+    KEY_NAME="$AWS_KEY_NAME"
+    SUBNET_ID="$AWS_SUBNET_ID"
+    SECURITY_GROUP_IDS="$AWS_SECURITY_GROUP_IDS" # Add your security group IDs seperated by spaces
     INSTANCE_NAME="Shell-Script-EC2-Demo"
 
     # Call the function to create the EC2 instance
-    create_ec2_instance "$AMI_ID" "$INSTANCE_TYPE" "$KEY_NAME" "$SUBNET_ID" "$SECURITY_GROUP_IDS" "$INSTANCE_NAME"
+    create_ec2_instance "$AMI_ID" "$INSTANCE_TYPE" "$KEY_NAME" "$SUBNET_ID" "$SECURITY_GROUP_IDS" "$INSTANCE_NAME $SUBNET_ID $SECURITY_GROUP_IDS $INSTANCE_NAME"
 
     echo "EC2 instance creation completed."
 }
