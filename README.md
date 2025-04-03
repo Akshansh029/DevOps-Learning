@@ -10,6 +10,8 @@ Welcome to my DevOps Learning repository! 🚀 This repo is a collection of my n
 
 - Version Control – Working with Git and GitHub
 
+- All the mini projects using VMs
+
 ## How to Use This Repo
 
 1. Clone the repository
@@ -23,4 +25,4 @@ cd DevOps-Learning
 
 3. Run scripts and test configurations.
 
-4. Contribute or suggest improvements! 🎉
+4. Contribute or suggest improvements!
