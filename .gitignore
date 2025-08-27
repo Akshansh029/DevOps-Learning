@@ -2,3 +2,6 @@ gradle.zip
 .vagrant/
 
 */.terraform/
+
+*/terraform-ec2-key
+*/*.pub
