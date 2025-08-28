@@ -48,12 +48,12 @@ resource "aws_security_group" "allow_tls" {
 
 # EC2 Instance
 resource "aws_instance" "terraform_ec2" {
-      ami           = "ami-0360c520857e3138f" # Ubuntu 24
-  instance_type = "t2.micro"
+      ami           = var.ubuntu_ec2_ami_id # Ubuntu 24
+  instance_type = var.instance_type
   key_name = aws_key_pair.deployer.key_name
   security_groups = [aws_security_group.allow_tls.name]
   root_block_device {
-    volume_size = 15
+    volume_size = var.aws_root_storage_size
     volume_type = "gp3"
   }
 
