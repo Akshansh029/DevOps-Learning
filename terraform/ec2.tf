@@ -48,6 +48,7 @@ resource "aws_security_group" "allow_tls" {
 
 # EC2 Instance
 resource "aws_instance" "terraform_ec2" {
+  count = 2 # meta argument
   ami             = var.ubuntu_ec2_ami_id # Ubuntu 24
   instance_type   = var.instance_type
   key_name        = aws_key_pair.deployer.key_name
