@@ -5,3 +5,6 @@ gradle.zip
 
 */terraform-ec2-key
 */*.pub
+
+*/*.tfstate
+*/*.tfstate.backup
