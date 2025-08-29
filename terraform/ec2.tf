@@ -58,7 +58,7 @@ resource "aws_instance" "terraform_ec2" {
   key_name        = aws_key_pair.deployer.key_name
   security_groups = [aws_security_group.allow_tls.name]
   root_block_device {
-    volume_size = var.aws_root_storage_size
+    volume_size = var.env == "prd" ? var.aws_root_storage_size : var.aws_default_root_storage_size
     volume_type = "gp3"
   }
   user_data = file("install_nginx.sh") # Run install_nginx script
