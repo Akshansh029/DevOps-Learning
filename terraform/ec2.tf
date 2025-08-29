@@ -48,9 +48,13 @@ resource "aws_security_group" "allow_tls" {
 
 # EC2 Instance
 resource "aws_instance" "terraform_ec2" {
-  count = 2 # meta argument
+  # count = 2 # meta argument
+  for_each = tomap({
+    terraform-ec2-instance-t2 = "t2.micro"
+    terraform-ec2-instance-t3 = "t3.micro"
+  })
   ami             = var.ubuntu_ec2_ami_id # Ubuntu 24
-  instance_type   = var.instance_type
+  instance_type   = each.value
   key_name        = aws_key_pair.deployer.key_name
   security_groups = [aws_security_group.allow_tls.name]
   root_block_device {
@@ -60,6 +64,6 @@ resource "aws_instance" "terraform_ec2" {
   user_data = file("install_nginx.sh") # Run install_nginx script
 
   tags = {
-    Name = "terraform-ec2-instance"
+    Name = each.key
   }
 }
