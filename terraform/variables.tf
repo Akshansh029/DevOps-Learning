@@ -19,5 +19,5 @@ variable "ubuntu_ec2_ami_id" {
 
 variable "env" {
   type = string
-  default = "prd"
+  default = "dev"
 }

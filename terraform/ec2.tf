@@ -2,6 +2,9 @@
 resource "aws_key_pair" "deployer" {
   key_name   = "terraform-ec2-key"
   public_key = file("terraform-ec2-key.pub")
+  tags = {
+    Environment = "dev"
+  }
 }
 
 # VPC for EC2 instance
@@ -65,5 +68,6 @@ resource "aws_instance" "terraform_ec2" {
 
   tags = {
     Name = each.key
+    Environment = var.env
   }
 }
