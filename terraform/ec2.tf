@@ -1,6 +1,6 @@
 # Key pair for EC2 instance
 resource "aws_key_pair" "deployer" {
-  key_name   = "terraform-ec2-key"
+  key_name   = "${var.env}-terraform-ec2-key"
   public_key = file("terraform-ec2-key.pub")
   tags = {
     Environment = var.env
@@ -16,7 +16,7 @@ resource "aws_default_vpc" "default" {
 
 # Security group for EC2 instance
 resource "aws_security_group" "allow_tls" {
-  name        = "terraform-ec2-sg"
+  name        = "${var.env}-terraform-ec2-sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
   vpc_id      = aws_default_vpc.default.id # Interpolation
 
@@ -46,6 +46,7 @@ resource "aws_security_group" "allow_tls" {
 
   tags = {
     Name = "allow_tls"
+    Environment = var.env
   }
 }
 
