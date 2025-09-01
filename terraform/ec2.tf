@@ -2,6 +2,10 @@
 resource "aws_key_pair" "deployer" {
   key_name   = "terraform-ec2-key"
   public_key = file("terraform-ec2-key.pub")
+
+  tags = {
+    Environment = var.env
+  }
 }
 
 # VPC for EC2 instance
@@ -51,7 +55,6 @@ resource "aws_instance" "terraform_ec2" {
   # count = 2 # meta argument
   for_each = tomap({
     terraform-ec2-instance-t2 = "t2.micro"
-    terraform-ec2-instance-t3 = "t3.micro"
   })
   ami             = var.ubuntu_ec2_ami_id # Ubuntu 24
   instance_type   = each.value
@@ -65,5 +68,6 @@ resource "aws_instance" "terraform_ec2" {
 
   tags = {
     Name = each.key
+    Environment = var.env
   }
 }
