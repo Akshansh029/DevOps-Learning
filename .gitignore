@@ -5,5 +5,8 @@ gradle.zip
 
 */terraform-ec2-key
 */*.pub
+*/*/terraform-ec2-key
+*/*/*.pub
 
 *.tfstate*
+/.terraform
