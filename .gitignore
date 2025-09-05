@@ -10,3 +10,6 @@ gradle.zip
 
 *.tfstate*
 /.terraform
+
+*/.*.lock.hcl
+.*.lock.hcl

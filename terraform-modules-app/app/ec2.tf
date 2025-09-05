@@ -1,7 +1,7 @@
 # Key pair for EC2 instance
-resource "aws_key_pair" "deployer" {
+resource "aws_key_pair" "key-deployer" {
   key_name   = "${var.env}-infra-app-key"
-  public_key = file("terraform-ec2-key.pub")
+  public_key = file("${path.module}/terraform-ec2-key.pub")
 
   tags = {
     Environment = var.env
@@ -55,7 +55,7 @@ resource "aws_instance" "terraform_ec2" {
   count = var.infra-app-ec2-count
   ami             = var.infra-app-ec2_ami_id # Ubuntu 24
   instance_type   = var.infra-app-ec2-instance-type
-  key_name        = aws_key_pair.deployer.key_name
+  key_name        = aws_key_pair.key-deployer.key_name
   security_groups = [aws_security_group.allow_tls.name]
   root_block_device {
     volume_size = var.env == "prd" ? 20 : 10
