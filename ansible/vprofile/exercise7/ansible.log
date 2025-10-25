@@ -1,0 +1,27 @@
+2025-10-25 07:07:09,911 p=1975 u=ubuntu n=ansible INFO| PLAY [DBserver setup] **********************************************************
+2025-10-25 07:07:09,919 p=1975 u=ubuntu n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2025-10-25 07:07:12,203 p=1975 u=ubuntu n=ansible WARNING| [WARNING]: Platform linux on host db01 is using the discovered Python
+interpreter at /usr/bin/python3.12, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-10-25 07:07:12,204 p=1975 u=ubuntu n=ansible INFO| ok: [db01]
+2025-10-25 07:07:12,209 p=1975 u=ubuntu n=ansible INFO| TASK [Update cache] ************************************************************
+2025-10-25 07:07:14,226 p=1975 u=ubuntu n=ansible INFO| changed: [db01]
+2025-10-25 07:07:14,233 p=1975 u=ubuntu n=ansible INFO| TASK [Install mariadb] *********************************************************
+2025-10-25 07:07:15,347 p=1975 u=ubuntu n=ansible INFO| ok: [db01]
+2025-10-25 07:07:15,352 p=1975 u=ubuntu n=ansible INFO| TASK [Install PyMySQL] *********************************************************
+2025-10-25 07:07:16,391 p=1975 u=ubuntu n=ansible INFO| ok: [db01]
+2025-10-25 07:07:16,398 p=1975 u=ubuntu n=ansible INFO| TASK [Start and enable mariadb] ************************************************
+2025-10-25 07:07:17,143 p=1975 u=ubuntu n=ansible INFO| ok: [db01]
+2025-10-25 07:07:17,148 p=1975 u=ubuntu n=ansible INFO| TASK [Create a new database with name 'accounts'] ******************************
+2025-10-25 07:07:17,621 p=1975 u=ubuntu n=ansible INFO| ok: [db01]
+2025-10-25 07:07:17,628 p=1975 u=ubuntu n=ansible INFO| TASK [Create database user with name 'akshansh' and password '12345'] **********
+2025-10-25 07:07:18,132 p=1975 u=ubuntu n=ansible WARNING| [WARNING]: Option column_case_sensitive is not provided. The default is now
+false, so the column's name will be uppercased. The default will be changed to
+true in community.mysql 4.0.0.
+
+2025-10-25 07:07:18,132 p=1975 u=ubuntu n=ansible INFO| ok: [db01]
+2025-10-25 07:07:18,134 p=1975 u=ubuntu n=ansible INFO| PLAY RECAP *********************************************************************
+2025-10-25 07:07:18,134 p=1975 u=ubuntu n=ansible INFO| db01                       : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
