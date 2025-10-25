@@ -1,0 +1,38 @@
+---
+- name: DBserver setup
+  hosts: dbservers
+  become: yes
+  tasks:
+    - name: Update cache
+      apt:
+        update_cache: yes
+
+    - name: Install mariadb
+      apt: 
+        name: mariadb-server
+        state: present
+ 
+    - name: Install PyMySQL
+      apt: 
+        name: python3-pymysql
+        state: present
+
+    - name: Start and enable mariadb
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    - name: Create a new database with name 'accounts'
+      community.mysql.mysql_db:
+        name: accounts
+        state: present
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+
+    - name: Create database user with name 'akshansh' and password '12345'
+      community.mysql.mysql_user:
+        name: akshansh
+        password: 12345
+        priv: '*.*:ALL'
+        state: present
+        login_unix_socket: /var/run/mysqld/mysqld.sock

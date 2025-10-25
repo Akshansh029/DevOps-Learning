@@ -1,0 +1,26 @@
+---
+- name: Webserver setup
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Update cache
+      apt:
+        update_cache: yes
+
+    - name: Install apache2
+      apt: 
+        name: apache2
+        state: present
+
+    - name: Start and enable apache2
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Copy index file
+      copy:
+        #        content: "<h1>This is through the content paramter of copy module</h1>"
+        src: files/index.html
+        dest: /var/www/html/index.html
+        backup: yes

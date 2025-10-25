@@ -1,0 +1,38 @@
+---
+- name: Webserver setup
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Update cache
+      apt:
+        update_cache: yes
+
+    - name: Install apache2
+      apt: 
+        name: apache2
+        state: present
+
+    - name: Start and enable apache2
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+- name: DBserver setup
+  hosts: dbservers
+  become: yes
+  tasks:
+    - name: Update cache
+      apt:
+        update_cache: yes
+
+    - name: Install mariadb
+      apt: 
+        name: mariadb-server
+        state: present
+
+    - name: Start and enable mariadb
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
